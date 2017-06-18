@@ -1,0 +1,18 @@
+import java.lang.Integer;
+import org.threeten.bp.ZonedDateTime;
+
+CREATE TABLE book (
+  _id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  title TEXT NOT NULL,
+  author TEXT,
+  publishedAt TEXT AS ZonedDateTime,
+  numChapters INTEGER AS Integer
+);
+
+selectAll:
+SELECT *
+FROM book;
+
+insertRow:
+INSERT INTO book(title, publishedAt, author, numChapters)
+VALUES (?, ?, ?, ?);

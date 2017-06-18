@@ -1,0 +1,82 @@
+buildscript {
+    repositories {
+        jcenter()
+        maven { url 'https://maven.google.com' }
+        maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+    }
+    dependencies {
+        classpath 'com.squareup.sqldelight:gradle-plugin:0.6.1'
+        classpath 'me.tatarka:gradle-retrolambda:3.6.1'
+    }
+}
+
+repositories {
+    maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+}
+
+apply plugin: 'com.android.application'
+apply plugin: 'com.squareup.sqldelight'
+apply plugin: 'me.tatarka.retrolambda'
+
+android {
+    compileSdkVersion 26
+    buildToolsVersion "26.0.0"
+    defaultConfig {
+        applicationId "com.leandrofavarin.books"
+        minSdkVersion 21
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    packagingOptions {
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/rxjava.properties'
+        exclude 'LICENSE.txt'
+        exclude 'NOTICE'
+        exclude 'asm-license.txt'
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    compile 'com.android.support:appcompat-v7:26.0.0-beta2'
+    compile 'com.android.support:design:26.0.0-beta2'
+
+    compile 'com.google.dagger:dagger:2.11'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.11'
+
+    compile 'com.jakewharton:butterknife:8.6.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
+
+    compile 'com.jakewharton.threetenabp:threetenabp:1.0.5'
+    compile 'com.jakewharton.timber:timber:4.5.1'
+    compile 'com.squareup.sqlbrite2:sqlbrite:2.0.0-SNAPSHOT'
+
+    compile 'com.jakewharton:butterknife:8.6.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
+
+    compile 'io.reactivex.rxjava2:rxjava:2.1.0'
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+
+    provided 'com.google.auto.value:auto-value:1.4'
+    annotationProcessor 'com.google.auto.value:auto-value:1.4'
+    annotationProcessor 'com.ryanharter.auto.value:auto-value-parcel:0.2.5'
+
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    testCompile 'junit:junit:4.12'
+}
